@@ -1,13 +1,14 @@
 body {
+    background: #000;
+    color: #aeb9db;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    color: #333;
 }
 
 header {
-    background: #24292e;
+    background: #111;
     color: white;
     text-align: center;
     padding: 2rem;
@@ -46,7 +47,8 @@ section {
 }
 
 h2 {
-    border-bottom: 2px solid #24292e;
+    color: #fff;
+    border-bottom: 2px solid #333;
     padding-bottom: 0.5rem;
 }
 
@@ -57,18 +59,30 @@ h2 {
 }
 
 .project-card {
-    background: #f6f8fa;
+    background: #111;
     padding: 1rem;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+.project-card {
+    background: #000;
+    box-shadow: 0px 0px 18px #00f782;
+    border: 2px solid #00f782;
+}
+.project-card a {
+    text-decoration: none;
+}
 
 .project-card h3 {
     margin-top: 0;
+    color: #fff;
+}
+.project-card h3:hover {
+    color: #00f782;
 }
 
 a {
-    color: #0366d6;
+    color: #00f782;
     text-decoration: none;
 }
 
@@ -79,6 +93,7 @@ a:hover {
 footer {
     text-align: center;
     padding: 1rem;
-    background: #f6f8fa;
+    background: #111;
+    color: #555;
     margin-top: 2rem;
 }
