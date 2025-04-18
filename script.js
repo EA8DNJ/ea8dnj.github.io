@@ -6,22 +6,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainBanner = document.querySelector('.mainbanner');
     const mainBannerContainer = document.querySelector('.mainbanner-container');
 
-    // Header scroll effect and parallax
-    window.addEventListener('scroll', () => {
-        // Header transparency
-        if (window.scrollY > 50) {
+    // Función para aplicar efectos parallax
+    const applyParallax = () => {
+        const scrollPosition = window.scrollY;
+        // Parallax para el texto
+        mainBannerContainer.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+        // Parallax inverso para el fondo
+        mainBanner.style.backgroundPositionY = `${-scrollPosition * 0.2}px`;
+        // Efecto de transparencia del header
+        if (scrollPosition > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
+    };
 
-        // Parallax effect for main banner text
-        const scrollPosition = window.scrollY;
-        mainBannerContainer.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+    // Aplica parallax al cargar la página
+    applyParallax();
 
-        // Inverse parallax effect for main banner background
-        mainBanner.style.backgroundPositionY = `${-scrollPosition * 0.2}px`;
-    });
+    // Actualiza parallax durante el scroll
+    window.addEventListener('scroll', applyParallax);
 
     // Mobile menu toggle
     menuToggle.addEventListener('click', () => {
