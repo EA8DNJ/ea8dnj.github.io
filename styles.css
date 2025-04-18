@@ -47,7 +47,8 @@ body {
 }
 
 .logo-title h1 {
-    font-size: 1.5rem;
+    font-family: Doto, Arial;
+    font-size: 1.8rem;
     margin: 0;
 }
 
@@ -60,19 +61,19 @@ body {
 }
 
 .nav-menu a {
-    color: #ffffff;
+    color: #ccc;
     text-decoration: none;
     font-size: 1rem;
 }
 
 .nav-menu a:hover {
-    color: #4A90E2;
+    color: #0064FF;
 }
 
 .main-project-btn {
-    background: #4A90E2;
+    background: transparent;
     color: #ffffff;
-    border: none;
+    border: 2px solid #fff;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
@@ -80,7 +81,8 @@ body {
 }
 
 .main-project-btn:hover {
-    background: #357ABD;
+    background: #fff;
+    color: #000;
 }
 
 .menu-toggle {
@@ -94,7 +96,7 @@ body {
 
 .mainbanner {
     width: 100%;
-    height: 900px;
+    height: 920px;
     background: url('https://s.yimg.com/os/creatr-uploaded-images/2021-10/8a109be0-2e6d-11ec-86be-a96de0b92cac') no-repeat center center;
     background-size: cover;
     background-attachment: fixed; /* Parallax base */
@@ -119,8 +121,11 @@ body {
 }
 
 .mainbanner-container p {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-bottom: 2rem;
+    font-family: Doto, Arial;
+    font-weight: 500;
+    letter-spacing: -1px;
 }
 
 .banner-buttons {
@@ -130,9 +135,11 @@ body {
 }
 
 .banner-btn {
-    background: #4A90E2;
+    background: transparent;
     color: #ffffff;
-    border: none;
+    text-transform: uppercase;
+    font-weight: bolder;
+    border: 2px solid #fff;
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
     cursor: pointer;
@@ -140,7 +147,8 @@ body {
 }
 
 .banner-btn:hover {
-    background: #357ABD;
+    background: #fff;
+    color: #679;
 }
 
 .maincontainer {
@@ -172,6 +180,8 @@ body {
 .footer-column h4 {
     font-size: 1.2rem;
     margin-bottom: 1rem;
+    font-family: Doto, arial;
+    color: #df1;
 }
 
 .footer-column p {
