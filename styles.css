@@ -95,7 +95,7 @@ body {
 .mainbanner {
     width: 100%;
     height: 900px;
-    background: url('https://s.yimg.com/os/creatr-uploaded-images/2021-10/8a109be0-2e6d-11ec-86be-a96de0b92cac') no-repeat center center;
+    background: linear-gradient(to bottom, rgba(3, 5, 66, 0.5), rgba(33, 36, 65, 0.5)), url('https://s.yimg.com/os/creatr-uploaded-images/2021-10/8a109be0-2e6d-11ec-86be-a96de0b92cac') no-repeat center center;
     background-size: cover;
     background-attachment: fixed; /* Parallax base */
     display: flex;
@@ -121,9 +121,6 @@ body {
 .mainbanner-container p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    font-family: Doto;
-    text-shadow: 1px -1px 5px #002342;
-    font-weight: 500;
 }
 
 .banner-buttons {
@@ -133,19 +130,17 @@ body {
 }
 
 .banner-btn {
-    background: transparent;
+    background: #4A90E2;
     color: #ffffff;
-    border: 2px solid #fff;
+    border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
-    font-weight: bolder;
-    text-transform: uppercase;
 }
 
 .banner-btn:hover {
-    background: #0E2A4F;
+    background: #357ABD;
 }
 
 .maincontainer {
