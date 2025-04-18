@@ -1,53 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EA8DNJ - GitHub Page</title>
+    <title>EA8DNJ - Personal Portfolio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to EA8DNJ's GitHub Page</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-title">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 5L5 35H35L20 5Z" fill="#4A90E2"/>
+                    <path d="M20 10L10 30H30L20 10Z" fill="#50C8E8"/>
+                </svg>
+                <h1>EA8DNJ</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About me</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="main-project-btn">Main project</button>
+            <button class="menu-toggle">☰</button>
+        </div>
     </header>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Hi, I'm EA8DNJ! This is my personal space to share my projects, ideas, and contributions to the open-source community.</p>
-    </section>
-
-    <section id="projects">
-        <h2>My Projects</h2>
-        <div class="project-grid">
-            <a href="/"><div class="project-card">
-                <h3>Personal page</h3>
-                <p>The DELTAECO project. A webpage for radio and outdoor enthusiasts. You can check the source code on GitHub</p>
-            </div></a>
-            <a href="/"><div class="project-card">
-                <h3>TXA App</h3>
-                <p>A portable app for windows that encrypts text messages and converts it to audio for tx vía radio</p>
-            </div></a>
+    <div class="mainbanner" id="home">
+        <div class="mainbanner-container">
+            <h2>Welcome to My Portfolio</h2>
+            <p>I'm EA8DNJ, a passionate developer creating innovative solutions.</p>
+            <div class="banner-buttons">
+                <button class="banner-btn">Learn More</button>
+                <button class="banner-btn">View Projects</button>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Feel free to reach out to me via:</p>
-        <ul>
-            <li>GitHub: <a href="https://github.com/EA8DNJ">@EA8DNJ</a></li>
-            <li>Twitter: <a href="https://twitter.com/DELTAECOTV">@DELTAECOTV</a></li>
-        </ul>
-    </section>
+    <main class="maincontainer">
+        <!-- Content sections will be added here -->
+    </main>
 
-    <footer>
-        <p>&copy; 2025 EA8DNJ. All rights reserved.</p>
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-column main-column">
+                <h3>EA8DNJ</h3>
+                <p>Building the future, one project at a time.</p>
+                <button class="footer-btn">Get in Touch</button>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#docs">Documentation</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 EA8DNJ. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
