@@ -12,9 +12,10 @@
 }
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #0a0e17;
+    font-family: Mona, Arial, sans-serif;
+    background-color: #0d1117;
     color: #ffffff;
+    letter-spacing: -.02rem;
 }
 
 .header {
@@ -116,16 +117,19 @@ body {
 }
 
 .mainbanner-container h2 {
-    font-size: 3rem;
+    font-size: 3.7rem;
     margin-bottom: 1rem;
+    font-family: Mona, Arial;
+    font-weight: 700;
+    letter-spacing: -.16rem;
 }
 
 .mainbanner-container p {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-bottom: 2rem;
-    font-family: Doto, Arial;
-    font-weight: 500;
-    letter-spacing: -1px;
+    font-family: Mona, Arial;
+    font-weight: 400;
+    letter-spacing: -.04rem;
 }
 
 .banner-buttons {
@@ -137,6 +141,7 @@ body {
 .banner-btn {
     background: transparent;
     color: #ffffff;
+    font-family: Mona, Arial;
     text-transform: uppercase;
     font-weight: bolder;
     border: 2px solid #fff;
@@ -175,6 +180,9 @@ body {
 .footer-column h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    font-family: Doto, Arial, sans-serif;
+    color: #df1;
+    font-weight: 500;
 }
 
 .footer-column h4 {
@@ -189,16 +197,17 @@ body {
 }
 
 .footer-btn {
-    background: #4A90E2;
+    background: transparent;
     color: #ffffff;
-    border: none;
+    border: 2px solid #fff;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .footer-btn:hover {
-    background: #357ABD;
+    background: #fff;
+    color: #010409;
 }
 
 .footer-column ul {
