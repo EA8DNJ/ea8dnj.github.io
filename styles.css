@@ -106,6 +106,8 @@ body {
     align-items: center;
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid #222c3a;
+    box-shadow: 0px 9px 150px #142540;
 }
 
 .mainbanner-container {
@@ -152,8 +154,9 @@ body {
 }
 
 .banner-btn:hover {
-    background: #fff;
-    color: #679;
+    background: #df1;
+    border: 2px solid #df1;
+    color: #1e2e4d;
 }
 
 .maincontainer {
