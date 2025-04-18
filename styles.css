@@ -4,6 +4,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Doto';
+    src: url('/fonts/Doto.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
 body {
     margin: 0;
     font-family: Arial, sans-serif;
