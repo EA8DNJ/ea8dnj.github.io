@@ -206,8 +206,8 @@ body {
 }
 
 .node svg {
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 11px;
     fill: #0f9;
     display: block;
     margin: auto;
@@ -255,7 +255,7 @@ body {
 }
 
 /* SVG Lines */
-#lines {
+#lines svg {
     position: absolute;
     top: 0;
     left: 0;
@@ -267,7 +267,7 @@ body {
 
 .line {
     stroke: #0f9;
-    stroke-width: 1.5;
+    stroke-width: 1;
     fill: none;
     stroke-linecap: round;
     transition: stroke 0.3s;
