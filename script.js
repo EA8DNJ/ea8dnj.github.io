@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Dragging state
     let draggedNode = null;
-    let hasMoved = false;
+    let isDragging = false;
     let startX, startY;
 
     function updateLines() {
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         draggedNode = nodes.find(n => n.id === nodeId);
         draggedNode.fixed = true;
         document.getElementById(nodeId).classList.add('dragging');
-        hasMoved = false;
+        isDragging = false;
         startX = e.clientX || (e.touches && e.touches[0].clientX);
         startY = e.clientY || (e.touches && e.touches[0].clientY);
     }
@@ -197,37 +197,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const dx = clientX - startX;
             const dy = clientY - startY;
             if (Math.sqrt(dx * dx + dy * dy) > 5) {
-                hasMoved = true;
-                const rect = socialTree.getBoundingClientRect();
-                draggedNode.x = clientX - rect.left - padding;
-                draggedNode.y = clientY - rect.top - padding;
-                updateNodePositions();
-                updateLines();
+                isDragging = true;
             }
+            const rect = socialTree.getBoundingClientRect();
+            draggedNode.x = clientX - rect.left - padding;
+            draggedNode.y = clientY - rect.top - padding;
+            updateNodePositions();
+            updateLines();
         }
     }
 
     function endDrag(e) {
         if (!draggedNode) return;
+        if (!isDragging) {
+            const link = document.getElementById(draggedNode.id).querySelector('a');
+            if (link && link.href && link.href !== '#') {
+                window.location.href = link.href;
+            }
+        }
         document.getElementById(draggedNode.id).classList.remove('dragging');
         draggedNode.fixed = false;
         draggedNode = null;
-        hasMoved = false;
+        isDragging = false;
     }
 
     nodes.forEach(node => {
         const element = document.getElementById(node.id);
         element.addEventListener('mousedown', e => startDrag(e, node.id));
         element.addEventListener('touchstart', e => startDrag(e, node.id), { passive: false });
-        const link = element.querySelector('a');
-        link.addEventListener('click', e => {
-            if (hasMoved) {
-                e.preventDefault();
-                e.stopPropagation();
-            } else {
-                window.location.href = link.href;
-            }
-        });
     });
 
     document.addEventListener('mousemove', drag);
