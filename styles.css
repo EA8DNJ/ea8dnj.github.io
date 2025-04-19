@@ -100,7 +100,7 @@ body {
     height: 920px;
     background: url('https://space.blog.gov.uk/wp-content/uploads/sites/129/2023/11/Artistic-view-from-space_1.--ClearSpace.png') no-repeat center center;
     background-size: cover;
-    background-attachment: fixed; /* Parallax base */
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,112 +161,109 @@ body {
 
 /*---------------------------------------------------
 ----------------------Socialtree--------------------*/
-        .socialtreebox {
-            background: #111;
-            width: 100%;
-            height: 700px;
-            margin: 0 auto;
-        }
+.socialtreebox {
+    background: #111;
+    width: 100%;
+    height: 600px;
+    margin: 0 auto;
+}
 
-        #socialtree {
-            width: 100%;
-            max-width: 1000px;
-            padding: 20px;
-            position: relative;
-            box-sizing: border-box;
-            margin: 0 auto;
-            min-height: 400px;
-        }
+#socialtree {
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0 auto;
+    min-height: 400px;
+}
 
-        .node {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background: rgba(20, 30, 50, 0.9);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 6px rgba(0, 255, 153, 0.2);
-            cursor: grab;
-            backdrop-filter: blur(5px);
-        }
+.node {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: rgba(20, 30, 50, 0.9);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 6px rgba(0, 255, 153, 0.2);
+    cursor: grab;
+    backdrop-filter: blur(5px);
+}
 
-        .node.dragging {
-            cursor: grabbing;
-        }
+.node.dragging {
+    cursor: grabbing;
+}
 
-        .node:hover {
-            background: #0f9;
-            transform: scale(1.2);
-            box-shadow: 0 0 12px rgba(0, 255, 153, 0.6);
-            animation: pulse 1s infinite alternate;
-            cursor: pointer;
-        }
+.node:hover {
+    background: #0f9;
+    transform: scale(1.2);
+    box-shadow: 0 0 12px rgba(0, 255, 153, 0.6);
+    animation: pulse 1s infinite alternate;
+    cursor: pointer;
+}
 
-        .node svg {
-            width: 10px;
-            height: 10px;
-            fill: #0f9;
-        }
+.node svg {
+    width: 10px;
+    height: 10px;
+    fill: #0f9;
+}
 
-        .node:hover svg {
-            fill: #000;
-        }
+.node:hover svg {
+    fill: #000;
+}
 
-        .node-label {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #0f9;
-            font-size: 8px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            pointer-events: none;
-            transition: color 0.3s ease;
-        }
+.node-label {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #0f9;
+    font-size: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    pointer-events: none;
+    transition: color 0.3s ease;
+}
 
-        .node:hover .node-label {
-            color: #fff;
-        }
+.node:hover .node-label {
+    color: #fff;
+}
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 6px rgba(0, 255, 153, 0.6); }
-            100% { box-shadow: 0 0 12px rgba(0, 255, 153, 0.8); }
-        }
+@keyframes pulse {
+    0% { box-shadow: 0 0 6px rgba(0, 255, 153, 0.6); }
+    100% { box-shadow: 0 0 12px rgba(0, 255, 153, 0.8); }
+}
 
-        .glow {
-            transition: box-shadow 0.3s ease;
-        }
+.glow {
+    transition: box-shadow 0.3s ease;
+}
 
-        /* SVG Lines */
-        #lines svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
+/* SVG Lines */
+#lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
 
-        .line {
-            stroke: #0f9;
-            stroke-width: 1.5;
-            fill: none;
-            stroke-linecap: round;
-            transition: stroke 0.3s;
-        }
+.line {
+    stroke: #0f9;
+    stroke-width: 1.5;
+    fill: none;
+    stroke-linecap: round;
+    transition: stroke 0.3s;
+}
 
-        .line:hover {
-            stroke: #00cc99;
-        }
-
-
+.line:hover {
+    stroke: #00cc99;
+}
 
 /*---------------------------------------------------
 ----------------------Maincontainer--------------------*/
@@ -409,49 +406,45 @@ body {
 
     /*---------------------------------------------------------------
     ----------------------Socialtree Responsive--------------------*/
-            #socialtree {
-                padding: 15px;
-                min-height: 350px;
-            }
-            .node {
-                width: 13px;
-                height: 13px;
-            }
-            .node svg {
-                width: 9px;
-                height: 9px;
-            }
-            .node-label {
-                font-size: 7px;
-                top: 18px;
-            }
-            .line {
-                stroke-width: 1.2;
-            }
-    
+    #socialtree {
+        padding: 15px;
+        min-height: 350px;
+    }
+    .node {
+        width: 13px;
+        height: 13px;
+    }
+    .node svg {
+        width: 9px;
+        height: 9px;
+    }
+    .node-label {
+        font-size: 7px;
+        top: 18px;
+    }
+    .line {
+        stroke-width: 1.2;
+    }
 }
 
 @media (max-width: 480px) {
-
-    /*---------------------------------------------------------------
-    ----------------------Socialtree Responsive--------------------*/
-            #socialtree {
-                padding: 10px;
-                min-height: 300px;
-            }
-            .node {
-                width: 11px;
-                height: 11px;
-            }
-            .node svg {
-                width: 8px;
-                height: 8px;
-            }
-            .node-label {
-                font-size: 6px;
-                top: 16px;
-            }
-            .line {
-                stroke-width: 1;
-            }
-        }
+    #socialtree {
+        padding: 10px;
+        min-height: 300px;
+    }
+    .node {
+        width: 11px;
+        height: 11px;
+    }
+    .node svg {
+        width: 8px;
+        height: 8px;
+    }
+    .node-label {
+        font-size: 6px;
+        top: 16px;
+    }
+    .line {
+        stroke-width: 1;
+    }
+}
