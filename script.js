@@ -29,18 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Node data with initial positions
     function getInitialNodes(width, height) {
+        const padding = 20; // Match CSS padding in #socialtree
+        const adjustedWidth = width - 2 * padding;
+        const adjustedHeight = height - 2 * padding;
         return [
-            { id: 'deltaeco', x: width * 0.5, y: height * 0.2, vx: 0, vy: 0, fixed: false },
-            { id: 'ea8dnj', x: width * 0.2, y: height * 0.5, vx: 0, vy: 0, fixed: false },
-            { id: 'ea8dnj-web', x: width * 0.1, y: height * 0.8, vx: 0, vy: 0, fixed: false },
-            { id: 'ea8dnj-qrz', x: width * 0.3, y: height * 0.8, vx: 0, vy: 0, fixed: false },
-            { id: 'nullum', x: width * 0.8, y: height * 0.5, vx: 0, vy: 0, fixed: false },
-            { id: 'nullum-web', x: width * 0.7, y: height * 0.8, vx: 0, vy: 0, fixed: false },
-            { id: 'nullum-repo', x: width * 0.9, y: height * 0.8, vx: 0, vy: 0, fixed: false },
-            { id: 'nullum-discord', x: width * 0.8, y: height * 0.95, vx: 0, vy: 0, fixed: false },
-            { id: 'youtube', x: width * 0.5, y: height * 0.6, vx: 0, vy: 0, fixed: false },
-            { id: 'youtube-canal', x: width * 0.6, y: height * 0.9, vx: 0, vy: 0, fixed: false },
-            { id: 'youtube-x', x: width * 0.7, y: height * 0.9, vx: 0, vy: 0, fixed: false },
+            { id: 'deltaeco', x: padding + adjustedWidth * 0.5, y: padding + adjustedHeight * 0.2, vx: 0, vy: 0, fixed: false },
+            { id: 'ea8dnj', x: padding + adjustedWidth * 0.2, y: padding + adjustedHeight * 0.5, vx: 0, vy: 0, fixed: false },
+            { id: 'ea8dnj-web', x: padding + adjustedWidth * 0.1, y: padding + adjustedHeight * 0.8, vx: 0, vy: 0, fixed: false },
+            { id: 'ea8dnj-qrz', x: padding + adjustedWidth * 0.3, y: padding + adjustedHeight * 0.8, vx: 0, vy: 0, fixed: false },
+            { id: 'nullum', x: padding + adjustedWidth * 0.8, y: padding + adjustedHeight * 0.5, vx: 0, vy: 0, fixed: false },
+            { id: 'nullum-web', x: padding + adjustedWidth * 0.7, y: padding + adjustedHeight * 0.8, vx: 0, vy: 0, fixed: false },
+            { id: 'nullum-repo', x: padding + adjustedWidth * 0.9, y: padding + adjustedHeight * 0.8, vx: 0, vy: 0, fixed: false },
+            { id: 'nullum-discord', x: padding + adjustedWidth * 0.8, y: padding + adjustedHeight * 0.95, vx: 0, vy: 0, fixed: false },
+            { id: 'youtube', x: padding + adjustedWidth * 0.5, y: padding + adjustedHeight * 0.6, vx: 0, vy: 0, fixed: false },
+            { id: 'youtube-canal', x: padding + adjustedWidth * 0.6, y: padding + adjustedHeight * 0.9, vx: 0, vy: 0, fixed: false },
+            { id: 'youtube-x', x: padding + adjustedWidth * 0.7, y: padding + adjustedHeight * 0.9, vx: 0, vy: 0, fixed: false },
         ];
     }
 
@@ -69,10 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let repelStrength = 800;
     let linkStrength = 0.01;
     const damping = 0.9;
+    const padding = 20;
 
     // Dragging state
     let draggedNode = null;
-    let isDragging = false;
+    let hasMoved = false;
     let startX, startY;
 
     function updateLines() {
@@ -106,8 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const nodeHeight = element.offsetHeight || 15;
             const offsetX = nodeWidth / 2;
             const offsetY = nodeHeight / 2;
-            element.style.left = `${node.x - offsetX}px`;
-            element.style.top = `${node.y - offsetY}px`;
+            element.style.left = `${node.x - offsetX + padding}px`;
+            element.style.top = `${node.y - offsetY + padding}px`;
         });
     }
 
@@ -165,8 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const nodeWidth = document.getElementById(node.id).offsetWidth || 15;
             const nodeHeight = document.getElementById(node.id).offsetHeight || 15;
-            node.x = Math.max(nodeWidth / 2, Math.min(socialTreeRect.width - nodeWidth / 2, node.x));
-            node.y = Math.max(nodeHeight / 2, Math.min(socialTreeRect.height - nodeHeight / 2, node.y));
+            node.x = Math.max(nodeWidth / 2 + padding, Math.min(socialTreeRect.width - nodeWidth / 2 - padding, node.x));
+            node.y = Math.max(nodeHeight / 2 + padding, Math.min(socialTreeRect.height - nodeHeight / 2 - padding, node.y));
         });
 
         updateNodePositions();
@@ -176,10 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dragging handlers
     function startDrag(e, nodeId) {
         e.preventDefault();
+        e.stopPropagation();
         draggedNode = nodes.find(n => n.id === nodeId);
         draggedNode.fixed = true;
         document.getElementById(nodeId).classList.add('dragging');
-        isDragging = false;
+        hasMoved = false;
         startX = e.clientX || (e.touches && e.touches[0].clientX);
         startY = e.clientY || (e.touches && e.touches[0].clientY);
     }
@@ -191,11 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (clientX && clientY) {
             const dx = clientX - startX;
             const dy = clientY - startY;
-            if (Math.sqrt(dx * dx + dy * dy) > 10) {
-                isDragging = true;
+            if (Math.sqrt(dx * dx + dy * dy) > 5) {
+                hasMoved = true;
                 const rect = socialTree.getBoundingClientRect();
-                draggedNode.x = clientX - rect.left;
-                draggedNode.y = clientY - rect.top;
+                draggedNode.x = clientX - rect.left - padding;
+                draggedNode.y = clientY - rect.top - padding;
                 updateNodePositions();
                 updateLines();
             }
@@ -207,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(draggedNode.id).classList.remove('dragging');
         draggedNode.fixed = false;
         draggedNode = null;
-        isDragging = false;
+        hasMoved = false;
     }
 
     nodes.forEach(node => {
@@ -216,8 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
         element.addEventListener('touchstart', e => startDrag(e, node.id), { passive: false });
         const link = element.querySelector('a');
         link.addEventListener('click', e => {
-            if (isDragging) {
+            if (hasMoved) {
                 e.preventDefault();
+                e.stopPropagation();
             } else {
                 window.location.href = link.href;
             }
@@ -261,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('load', () => {
-        setTimeout(initialize, 0); // Ensure DOM is fully rendered
+        setTimeout(initialize, 0);
     });
     window.addEventListener('resize', initialize);
 
