@@ -78,6 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateLines() {
         const svg = document.getElementById('lines');
         svg.innerHTML = '';
+        svg.setAttribute('width', socialTreeRect.width);
+        svg.setAttribute('height', socialTreeRect.height);
         svg.setAttribute('viewBox', `0 0 ${socialTreeRect.width} ${socialTreeRect.height}`);
         svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
@@ -100,16 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateNodePositions() {
         nodes.forEach(node => {
             const element = document.getElementById(node.id);
-            // Obtener dimensiones reales del nodo
             const nodeWidth = element.offsetWidth || 15;
             const nodeHeight = element.offsetHeight || 15;
-            // Centrar el nodo restando la mitad de su tamaño
             const offsetX = nodeWidth / 2;
             const offsetY = nodeHeight / 2;
             element.style.left = `${node.x - offsetX}px`;
             element.style.top = `${node.y - offsetY}px`;
-            // Depuración
-            console.log(`Node ${node.id}: x=${node.x}, y=${node.y}, left=${element.style.left}, top=${element.style.top}, width=${nodeWidth}, height=${nodeHeight}`);
         });
     }
 
@@ -140,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 node.vy += (dy / distance) * force;
             });
 
-            links.forEach(link => {
+            links.forEach(link =>
                 if (link.source === node.id) {
                     const targetNode = nodes.find(n => n.id === link.target);
                     const dx = targetNode.x - node.x;
@@ -165,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
             node.x += node.vx;
             node.y += node.vy;
 
-            // Ajustar límites considerando el tamaño del nodo
             const nodeWidth = document.getElementById(node.id).offsetWidth || 15;
             const nodeHeight = document.getElementById(node.id).offsetHeight || 15;
             node.x = Math.max(nodeWidth / 2, Math.min(socialTreeRect.width - nodeWidth / 2, node.x));
@@ -185,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         isDragging = false;
         startX = e.clientX || (e.touches && e.touches[0].clientX);
         startY = e.clientY || (e.touches && e.touches[0].clientY);
-        console.log(`Start drag on ${nodeId}: x=${startX}, y=${startY}`);
     }
 
     function drag(e) {
@@ -202,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 draggedNode.y = clientY - rect.top;
                 updateNodePositions();
                 updateLines();
-                console.log(`Dragging ${draggedNode.id}: x=${draggedNode.x}, y=${draggedNode.y}, isDragging=${isDragging}`);
             }
         }
     }
@@ -211,16 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!draggedNode) return;
         document.getElementById(draggedNode.id).classList.remove('dragging');
         draggedNode.fixed = false;
-
-        console.log(`End drag: isDragging=${isDragging}`);
-        if (!isDragging) {
-            const link = document.getElementById(draggedNode.id).querySelector('a');
-            if (link && link.href && link.href !== '#') {
-                console.log(`Navigating to ${link.href}`);
-                window.location.href = link.href;
-            }
-        }
-
         draggedNode = null;
         isDragging = false;
     }
@@ -233,7 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', e => {
             if (isDragging) {
                 e.preventDefault();
-                console.log('Click prevented due to dragging');
+            } else {
+                window.location.href = link.href;
             }
         });
     });
@@ -269,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nodes = getInitialNodes(socialTreeRect.width, socialTreeRect.height);
         updateNodePositions();
         updateLines();
-        console.log('Social tree initialized', socialTreeRect);
     }
 
     window.addEventListener('load', initialize);
