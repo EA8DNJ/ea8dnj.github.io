@@ -9,11 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para aplicar efectos parallax
     const applyParallax = () => {
         const scrollPosition = window.scrollY;
-        // Parallax para el texto
         mainBannerContainer.style.transform = `translateY(${scrollPosition * 0.3}px)`;
-        // Parallax inverso para el fondo
         mainBanner.style.backgroundPositionY = `${-scrollPosition * 0.2}px`;
-        // Efecto de transparencia del header
         if (scrollPosition > 50) {
             header.classList.add('scrolled');
         } else {
@@ -21,20 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Aplica parallax al cargar la página
     applyParallax();
-
-    // Actualiza parallax durante el scroll
     window.addEventListener('scroll', applyParallax);
 
-    // Mobile menu toggle
     menuToggle.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         mainProjectBtn.classList.toggle('active');
         menuToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
     });
 
-    // Node data with initial positions (relative to container width/height)
+    // Node data with initial positions
     function getInitialNodes(width, height) {
         return [
             { id: 'deltaeco', x: width * 0.5, y: height * 0.2, vx: 0, vy: 0, fixed: false },
@@ -106,11 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateNodePositions() {
         nodes.forEach(node => {
             const element = document.getElementById(node.id);
-            // Centrar el nodo ajustando por su tamaño (15px / 2)
-            const offsetX = element.offsetWidth / 2;
-            const offsetY = element.offsetHeight / 2;
+            // Obtener dimensiones reales del nodo
+            const nodeWidth = element.offsetWidth || 15;
+            const nodeHeight = element.offsetHeight || 15;
+            // Centrar el nodo restando la mitad de su tamaño
+            const offsetX = nodeWidth / 2;
+            const offsetY = nodeHeight / 2;
             element.style.left = `${node.x - offsetX}px`;
             element.style.top = `${node.y - offsetY}px`;
+            // Depuración: verificar posiciones
+            console.log(`Node ${node.id}: x=${node.x}, y=${node.y}, left=${element.style.left}, top=${element.style.top}`);
         });
     }
 
@@ -119,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const centerY = socialTreeRect.height / 2;
         const scaleFactor = Math.min(socialTreeRect.width / 1000, socialTreeRect.height / 400);
 
-        // Scale physics parameters based on container size
         const scaledRepelStrength = repelStrength * scaleFactor;
         const scaledLinkStrength = linkStrength * scaleFactor;
         const scaledLinkLength = 80 * scaleFactor;
@@ -127,13 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
         nodes.forEach(node => {
             if (node.fixed) return;
 
-            // Centripetal force
             const dx = centerX - node.x;
             const dy = centerY - node.y;
             node.vx += dx * centripetalStrength;
             node.vy += dy * centripetalStrength;
 
-            // Repel force
             nodes.forEach(otherNode => {
                 if (node === otherNode) return;
                 const dx = node.x - otherNode.x;
@@ -144,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 node.vy += (dy / distance) * force;
             });
 
-            // Link force
             links.forEach(link => {
                 if (link.source === node.id) {
                     const targetNode = nodes.find(n => n.id === link.target);
@@ -165,13 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Apply velocity with damping
             node.vx *= damping;
             node.vy *= damping;
             node.x += node.vx;
             node.y += node.vy;
 
-            // Constrain to bounds
             node.x = Math.max(7.5, Math.min(socialTreeRect.width - 7.5, node.x));
             node.y = Math.max(7.5, Math.min(socialTreeRect.height - 7.5, node.y));
         });
@@ -189,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isDragging = false;
         startX = e.clientX || (e.touches && e.touches[0].clientX);
         startY = e.clientY || (e.touches && e.touches[0].clientY);
+        console.log(`Start drag on ${nodeId}: x=${startX}, y=${startY}`);
     }
 
     function drag(e) {
@@ -198,14 +191,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (clientX && clientY) {
             const dx = clientX - startX;
             const dy = clientY - startY;
-            // Considerar arrastre si el movimiento excede 5px
-            if (Math.sqrt(dx * dx + dy * dy) > 5) {
+            // Aumentar el umbral a 10px para detectar arrastre
+            if (Math.sqrt(dx * dx + dy * dy) > 10) {
                 isDragging = true;
                 const rect = socialTree.getBoundingClientRect();
                 draggedNode.x = clientX - rect.left;
                 draggedNode.y = clientY - rect.top;
                 updateNodePositions();
                 updateLines();
+                console.log(`Dragging ${draggedNode.id}: x=${draggedNode.x}, y=${draggedNode.y}, isDragging=${isDragging}`);
             }
         }
     }
@@ -214,15 +208,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!draggedNode) return;
         document.getElementById(draggedNode.id).classList.remove('dragging');
         draggedNode.fixed = false;
-        
-        // Solo abrir el enlace si NO se detectó arrastre
+
+        console.log(`End drag: isDragging=${isDragging}`);
+        // No abrir el enlace si se detectó arrastre
         if (!isDragging) {
             const link = document.getElementById(draggedNode.id).querySelector('a');
             if (link && link.href && link.href !== '#') {
+                console.log(`Navigating to ${link.href}`);
                 window.location.href = link.href;
             }
         }
-        
+
         draggedNode = null;
         isDragging = false;
     }
@@ -231,12 +227,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const element = document.getElementById(node.id);
         element.addEventListener('mousedown', e => startDrag(e, node.id));
         element.addEventListener('touchstart', e => startDrag(e, node.id), { passive: false });
+        // Prevenir el comportamiento predeterminado del enlace durante el arrastre
+        const link = element.querySelector('a');
+        link.addEventListener('click', e => {
+            if (isDragging) {
+                e.preventDefault();
+                console.log('Click prevented due to dragging');
+            }
+        });
     });
 
     document.addEventListener('mousemove', drag);
     document.addEventListener('touchmove', e => {
         e.preventDefault();
-        drag(e.touches[0]);
+        drag(e);
     }, { passive: false });
     document.addEventListener('mouseup', endDrag);
     document.addEventListener('touchend', endDrag);
@@ -271,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNodePositions();
         updateLines();
         animate();
+        console.log('Social tree initialized', socialTreeRect);
     });
 
     window.addEventListener('resize', () => {
@@ -278,6 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nodes = getInitialNodes(socialTreeRect.width, socialTreeRect.height);
         updateNodePositions();
         updateLines();
+        console.log('Window resized', socialTreeRect);
     });
 
     // Google Fonts
