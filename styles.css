@@ -210,6 +210,7 @@ body {
     height: 10px;
     fill: #0f9;
     display: block;
+    margin: auto;
 }
 
 .node:hover svg {
@@ -222,6 +223,7 @@ body {
     align-items: center;
     width: 100%;
     height: 100%;
+    text-decoration: none;
 }
 
 .node-label {
