@@ -166,15 +166,16 @@ body {
     width: 100%;
     height: 600px;
     margin: 0 auto;
+    position: relative;
 }
 
 #socialtree {
     width: 100%;
+    height: 100%;
     padding: 20px;
     position: relative;
     box-sizing: border-box;
     margin: 0 auto;
-    min-height: 400px;
 }
 
 .node {
@@ -208,10 +209,19 @@ body {
     width: 10px;
     height: 10px;
     fill: #0f9;
+    display: block;
 }
 
 .node:hover svg {
     fill: #000;
+}
+
+.node a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .node-label {
@@ -408,7 +418,6 @@ body {
     ----------------------Socialtree Responsive--------------------*/
     #socialtree {
         padding: 15px;
-        min-height: 350px;
     }
     .node {
         width: 13px;
@@ -430,7 +439,6 @@ body {
 @media (max-width: 480px) {
     #socialtree {
         padding: 10px;
-        min-height: 300px;
     }
     .node {
         width: 11px;
