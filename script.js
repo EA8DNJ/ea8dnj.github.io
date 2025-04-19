@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainBanner = document.querySelector('.mainbanner');
     const mainBannerContainer = document.querySelector('.mainbanner-container');
 
-    // Función para aplicar efectos parallax
+    // Parallax effect
     const applyParallax = () => {
         const scrollPosition = window.scrollY;
         mainBannerContainer.style.transform = `translateY(${scrollPosition * 0.3}px)`;
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 node.vy += (dy / distance) * force;
             });
 
-            links.forEach(link =>
+            links.forEach(link => {
                 if (link.source === node.id) {
                     const targetNode = nodes.find(n => n.id === link.target);
                     const dx = targetNode.x - node.x;
@@ -252,12 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize
     function initialize() {
         socialTreeRect = socialTree.getBoundingClientRect();
+        if (socialTreeRect.width === 0 || socialTreeRect.height === 0) {
+            socialTreeRect = { width: socialTree.offsetWidth, height: socialTree.offsetHeight };
+        }
         nodes = getInitialNodes(socialTreeRect.width, socialTreeRect.height);
         updateNodePositions();
         updateLines();
     }
 
-    window.addEventListener('load', initialize);
+    window.addEventListener('load', () => {
+        setTimeout(initialize, 0); // Ensure DOM is fully rendered
+    });
     window.addEventListener('resize', initialize);
 
     // Animation loop
